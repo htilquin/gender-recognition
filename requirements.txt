@@ -17,7 +17,7 @@ cycler==0.10.0
 debugpy==1.5.0
 decorator==5.1.0
 defusedxml==0.7.1
-dlib==19.22.1
+dlib-bin==19.22.1
 entrypoints==0.3
 gitdb==4.0.7
 GitPython==3.1.24

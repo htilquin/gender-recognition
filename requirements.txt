@@ -48,6 +48,7 @@ notebook==6.4.4
 numpy==1.21.2
 opencv-contrib-python==4.5.3.56
 opencv-python==4.5.3.56
+opencv-python-headless
 packaging==21.0
 pandas==1.3.3
 pandocfilters==1.5.0
@@ -66,6 +67,7 @@ Pygments==2.10.0
 pyparsing==2.4.7
 pyrsistent==0.18.0
 python-dateutil==2.8.2
+python3-opencv
 pytz==2021.3
 pyzmq==22.3.0
 requests==2.26.0

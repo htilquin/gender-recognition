@@ -67,7 +67,6 @@ Pygments==2.10.0
 pyparsing==2.4.7
 pyrsistent==0.18.0
 python-dateutil==2.8.2
-python3-opencv
 pytz==2021.3
 pyzmq==22.3.0
 requests==2.26.0

@@ -42,7 +42,7 @@ if uploaded_picture is None :
 
 
 else :
-    # récupérer les faces sur une image
+    # get all the faces from the picture
     detector = get_face_detector()
 
     image = read_image_from_streamlit_cv2(uploaded_picture)
@@ -66,16 +66,16 @@ else :
         face_images = []
 
     for face_rect in faces :
-        # augmenter la taille du rectangle
+        # make rectangle wider
         wider_face_rect = get_wider_rectangle(face_rect)
         face_image = image_clean[wider_face_rect.top(): wider_face_rect.bottom(), wider_face_rect.left(): wider_face_rect.right()].copy()
 
         if gender_rec :
-            # calcule les features
+            # calculate features
             face_embeddings = get_face_embeddings(image_clean, wider_face_rect, shape_pred, face_rec_model)
-            # fait la prediction
+            # predicts
             prediction = get_gender_from_features(clf_model, face_embeddings)
-            # ajoute la photo au bon accumulateur
+            # add picture to the accumulator
             if prediction == "female" :
                 female_images.append(face_image)
                 add_rectangle_on_image(image, wider_face_rect, picked_color_female, frame_weight)
@@ -89,24 +89,24 @@ else :
             add_rectangle_on_image(image, wider_face_rect, picked_color, frame_weight)
 
 
-    # AFFICHAGE DES IMAGES
+    # DISPLAY PICTURES
     if gender_rec and len(faces) > 0 :
         pc_women = len(female_images)/(len(female_images)+ len(male_images))
         caption = f"{len(faces)} faces detected, {pc_women*100:.0f}% of which are women."
 
         st.image(image, caption)
 
-        # AFFICHAGE DU PARITOMETRE DE LA PHOTO
+        # DISPLAY GENDER PARITOMETER
         if parity :
             cols = st.columns((1,3,1))
             cols[1].pyplot(display_paritometer(pc_women, hex_color_female, hex_color_male))
 
-        # affiche toutes les photos "female"
+        # display all "female" pictures
         if len(female_images) > 0 :
             st.write(f"Female, {len(female_images)}")      
             grid_display(female_images, number_of_cols)
 
-        # affiche toutes les photos "male"
+        # display all "male" pictures
         if len(male_images) > 0 :
             st.write(f"Male, {len(male_images)}")
             grid_display(male_images, number_of_cols)
@@ -120,4 +120,4 @@ else :
 
 st.markdown(footer,unsafe_allow_html=True)
 
-st.write(f"Temps de chargement total : {stop_timer(start_timer)} sec.")
+st.write(f"Total loading time : {stop_timer(start_timer)} sec.")
